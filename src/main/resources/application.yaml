@@ -1,5 +1,6 @@
 delivery:
   cost:
+    currency: PHP
     heavyParcelBasePrice: 20
     smallParcelBasePrice: 0.03
     mediumParcelBasePrice: 0.04

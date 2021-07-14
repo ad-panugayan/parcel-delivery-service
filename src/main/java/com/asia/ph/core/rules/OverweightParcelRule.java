@@ -5,6 +5,8 @@ import com.asia.ph.core.dto.ParcelDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.money.MonetaryAmount;
+
 @Slf4j
 @RequiredArgsConstructor
 public class OverweightParcelRule implements DeliveryCostRule {
@@ -17,7 +19,7 @@ public class OverweightParcelRule implements DeliveryCostRule {
     }
 
     @Override
-    public double compute(ParcelDTO parcelDTO) {
+    public MonetaryAmount compute(ParcelDTO parcelDTO) {
         log.error("Parcel is overweight: {}", parcelDTO);
         throw new UnsupportedOperationException("Parcel is overweight");
     }

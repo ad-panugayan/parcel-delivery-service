@@ -4,10 +4,12 @@ import com.asia.ph.core.client.VoucherClient;
 import com.asia.ph.core.dto.ParcelDTO;
 import com.asia.ph.core.dto.VoucherDTO;
 import com.asia.ph.core.rules.DeliveryCostRule;
+import com.asia.ph.core.util.DeliveryCostCalculator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+import javax.money.MonetaryAmount;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -20,8 +22,8 @@ public class DeliveryCostCalculatorService {
 
     private final VoucherClient voucherClient;
 
-    public Double computeDeliveryCost(ParcelDTO parcelDTO, String voucherCode) {
-        double deliveryCost = classifyAndComputeDelivery(parcelDTO);
+    public MonetaryAmount computeDeliveryCost(ParcelDTO parcelDTO, String voucherCode) {
+        MonetaryAmount deliveryCost = classifyAndComputeDelivery(parcelDTO);
 
         if (StringUtils.isEmpty(voucherCode)) {
             return deliveryCost;
@@ -30,7 +32,7 @@ public class DeliveryCostCalculatorService {
         return computeVoucherDiscount(deliveryCost, voucherCode);
     }
 
-    private double classifyAndComputeDelivery(ParcelDTO parcelDTO) {
+    private MonetaryAmount classifyAndComputeDelivery(ParcelDTO parcelDTO) {
         DeliveryCostRule rule = deliveryCostRules.stream()
                 .filter(deliveryCostRule -> deliveryCostRule.conditionIsMet(parcelDTO))
                 .findFirst()
@@ -39,11 +41,11 @@ public class DeliveryCostCalculatorService {
         return rule.compute(parcelDTO);
     }
 
-    private double computeVoucherDiscount(double deliveryCost, String voucherCode) {
+    private MonetaryAmount computeVoucherDiscount(MonetaryAmount deliveryCost, String voucherCode) {
         VoucherDTO voucherDTO = voucherClient.getVoucher(voucherCode);
 
         if (Objects.nonNull(voucherDTO) && LocalDate.now().isBefore(voucherDTO.getExpiry())) {
-            return deliveryCost * voucherDTO.getDiscount() >= 0 ? deliveryCost - voucherDTO.getDiscount() : 0;
+            return DeliveryCostCalculator.calculateDiscount(deliveryCost, voucherDTO.getDiscount());
         }
 
         return deliveryCost;

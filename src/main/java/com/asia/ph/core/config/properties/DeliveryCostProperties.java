@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Setter
 public class DeliveryCostProperties {
 
+    private String currency;
+
     private double heavyParcelBasePrice;
 
     private double smallParcelBasePrice;

@@ -18,10 +18,15 @@ public class DeliveryController {
     private final DeliveryCostCalculatorService deliveryCostCalculatorService;
 
     @PostMapping("/delivery/calculate-cost")
-    public ResponseEntity<Double> calculateDeliveryCost(@RequestBody ParcelDTO parcelDTO,
+    public ResponseEntity<String> calculateDeliveryCost(@RequestBody ParcelDTO parcelDTO,
                                                         @RequestParam(value = "voucherCode", required = false) String voucherCode) {
-        log.info("Calculate delivery cost. Parcel: {}, Voucher: {}", parcelDTO, voucherCode);
-        return ResponseEntity.ok(deliveryCostCalculatorService.computeDeliveryCost(parcelDTO, voucherCode));
+        log.info("Calculate delivery cost for parcel: {}, voucher: {}", parcelDTO, voucherCode);
+
+        String deliveryCost = deliveryCostCalculatorService.computeDeliveryCost(parcelDTO, voucherCode).toString();
+
+        log.info("Delivery cost for parcel: {}, voucher: {}, cost: {}", parcelDTO, voucherCode, deliveryCost);
+
+        return ResponseEntity.ok(deliveryCost);
     }
 
 }

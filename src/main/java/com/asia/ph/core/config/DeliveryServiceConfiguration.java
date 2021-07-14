@@ -6,6 +6,7 @@ import com.asia.ph.core.config.properties.ParcelProperties;
 import com.asia.ph.core.config.properties.VoucherClientProperties;
 import com.asia.ph.core.rules.*;
 import com.asia.ph.core.service.DeliveryCostCalculatorService;
+import com.asia.ph.core.service.MoneyConverter;
 import com.asia.ph.infra.MyntVoucherClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -22,13 +23,18 @@ import java.util.List;
 public class DeliveryServiceConfiguration {
 
     @Bean
-    List<DeliveryCostRule> deliveryCostRules(ParcelProperties parcelProperties, DeliveryCostProperties deliveryCostProperties) {
+    MoneyConverter moneyConverter(DeliveryCostProperties deliveryCostProperties) {
+        return new MoneyConverter(deliveryCostProperties.getCurrency());
+    }
+
+    @Bean
+    List<DeliveryCostRule> deliveryCostRules(ParcelProperties parcelProperties, DeliveryCostProperties deliveryCostProperties, MoneyConverter moneyConverter) {
         List<DeliveryCostRule> deliveryCostRules = new LinkedList<>();
         deliveryCostRules.add(new OverweightParcelRule(parcelProperties));
-        deliveryCostRules.add(new HeavyParcelRule(parcelProperties, deliveryCostProperties));
-        deliveryCostRules.add(new SmallParcelRule(parcelProperties, deliveryCostProperties));
-        deliveryCostRules.add(new MediumParcelRule(parcelProperties, deliveryCostProperties));
-        deliveryCostRules.add(new LargeParcelRule(deliveryCostProperties));
+        deliveryCostRules.add(new HeavyParcelRule(parcelProperties, deliveryCostProperties, moneyConverter));
+        deliveryCostRules.add(new SmallParcelRule(parcelProperties, deliveryCostProperties, moneyConverter));
+        deliveryCostRules.add(new MediumParcelRule(parcelProperties, deliveryCostProperties, moneyConverter));
+        deliveryCostRules.add(new LargeParcelRule(deliveryCostProperties, moneyConverter));
 
         return deliveryCostRules;
     }
