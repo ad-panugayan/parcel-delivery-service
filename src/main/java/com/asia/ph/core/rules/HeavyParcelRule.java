@@ -1,7 +1,7 @@
 package com.asia.ph.core.rules;
 
-import com.asia.ph.core.config.DeliveryCostProperties;
-import com.asia.ph.core.config.ParcelProperties;
+import com.asia.ph.core.config.properties.DeliveryCostProperties;
+import com.asia.ph.core.config.properties.ParcelProperties;
 import com.asia.ph.core.dto.ParcelDTO;
 import com.asia.ph.core.util.DeliveryCostCalculator;
 import lombok.RequiredArgsConstructor;

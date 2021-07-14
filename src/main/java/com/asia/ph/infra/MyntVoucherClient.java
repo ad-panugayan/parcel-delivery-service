@@ -1,7 +1,7 @@
 package com.asia.ph.infra;
 
 import com.asia.ph.core.client.VoucherClient;
-import com.asia.ph.core.config.VoucherClientProperties;
+import com.asia.ph.core.config.properties.VoucherClientProperties;
 import com.asia.ph.core.dto.VoucherDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

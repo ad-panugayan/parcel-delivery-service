@@ -1,6 +1,9 @@
 package com.asia.ph.core.config;
 
 import com.asia.ph.core.client.VoucherClient;
+import com.asia.ph.core.config.properties.DeliveryCostProperties;
+import com.asia.ph.core.config.properties.ParcelProperties;
+import com.asia.ph.core.config.properties.VoucherClientProperties;
 import com.asia.ph.core.rules.*;
 import com.asia.ph.core.service.DeliveryCostCalculatorService;
 import com.asia.ph.infra.MyntVoucherClient;

@@ -1,4 +1,4 @@
-package com.asia.ph.core.config;
+package com.asia.ph.core.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;

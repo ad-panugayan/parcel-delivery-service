@@ -1,6 +1,6 @@
 package com.asia.ph.core.rules;
 
-import com.asia.ph.core.config.ParcelProperties;
+import com.asia.ph.core.config.properties.ParcelProperties;
 import com.asia.ph.core.dto.ParcelDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

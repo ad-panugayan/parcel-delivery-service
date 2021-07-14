@@ -1,6 +1,6 @@
 package com.asia.ph.core.rules;
 
-import com.asia.ph.core.config.DeliveryCostProperties;
+import com.asia.ph.core.config.properties.DeliveryCostProperties;
 import com.asia.ph.core.dto.ParcelDTO;
 import com.asia.ph.core.util.DeliveryCostCalculator;
 import com.asia.ph.core.util.VolumeCalculator;
