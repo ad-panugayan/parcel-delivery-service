@@ -21,7 +21,7 @@ public class DeliveryController {
 
     @PostMapping("/delivery/calculate-cost")
     public ResponseEntity<MonetaryAmount> calculateDeliveryCost(@RequestBody ParcelDTO parcelDTO,
-                                                        @RequestParam(value = "voucherCode", required = false) String voucherCode) {
+                                                                @RequestParam(value = "voucherCode", required = false) String voucherCode) {
         log.info("Calculate delivery cost for parcel: {}, voucher: {}", parcelDTO, voucherCode);
 
         MonetaryAmount deliveryCost = deliveryCostCalculatorService.computeDeliveryCost(parcelDTO, voucherCode);
