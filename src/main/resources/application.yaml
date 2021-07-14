@@ -1,0 +1,15 @@
+delivery:
+  cost:
+    heavyParcelBasePrice: 20
+    smallParcelBasePrice: 0.03
+    mediumParcelBasePrice: 0.04
+    largeParcelBasePrice: 0.05
+  parcel:
+    overweight: 50
+    heavyweight: 10
+    small: 1500
+    medium: 2500
+
+voucher:
+  client:
+    url: https://mynt-exam.mocklab.io/voucher/
