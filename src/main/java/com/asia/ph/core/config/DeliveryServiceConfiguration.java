@@ -5,7 +5,6 @@ import com.asia.ph.core.config.properties.DeliveryCostProperties;
 import com.asia.ph.core.config.properties.ParcelProperties;
 import com.asia.ph.core.config.properties.VoucherClientProperties;
 import com.asia.ph.core.rules.*;
-import com.asia.ph.core.service.DeliveryCostCalculatorService;
 import com.asia.ph.core.service.MoneyConverter;
 import com.asia.ph.infra.MyntVoucherClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -49,11 +48,6 @@ public class DeliveryServiceConfiguration {
         requestFactory.setHttpClient(httpClient);
 
         return new MyntVoucherClient(voucherClientProperties, new RestTemplate(requestFactory));
-    }
-
-    @Bean
-    DeliveryCostCalculatorService deliveryCostCalculatorService(List<DeliveryCostRule> deliveryCostRules, VoucherClient voucherClient) {
-        return new DeliveryCostCalculatorService(deliveryCostRules, voucherClient);
     }
 
 }
